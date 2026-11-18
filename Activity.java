@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Activity{
     private String id;
     private String title;
@@ -37,18 +35,19 @@ public class Activity{
     public String getStatus(){
         return isCompleted()? "Completed" : "Incomplete";
     }
+
     //idValidate
     private static String idValidate(String id) throws IllegalArgumentException{
         if(id == null || id.isBlank()){
             throw new IllegalArgumentException("ID cannot be empty");
         }
         if(!id.matches("[0-9]+")){
-            throw new IllegalArgumentException("ID must be a number, not '" + id + "'");
+            throw new IllegalArgumentException(" ID must be a positive/number, not '" + id + "'");
         }
-        if(id.length() > 6){
-            throw new IllegalArgumentException("ID must not exceed 6 digits. [" + id + "]");
+        if(id.length() > 8 ){
+            throw new IllegalArgumentException("ID must not exceed 8 digits. [" + id + "]");
         }
-        if (Integer.parseInt(id) <= 0) {
+        if (id.matches("0+")) {
             throw new IllegalArgumentException("ID must be greater than zero");
         }
         return id;
@@ -73,56 +72,8 @@ private static String titleValidate(String title) throws IllegalArgumentExceptio
         setCompleted(false);
     }
 
-    //display activity
-    public void displayActivity(){
-        System.out.println("ID: " + getId() + " | " + "Title: " + getTitle() + " | " + "Status: " + getStatus());
-    }
 
-    //<=========MAIN==============>
-    public static void main(String[] args) {
-        //ArrayList
-        ArrayList<Activity> activities = new ArrayList<>();
 
-        try {
-            activities.add(new Activity(" ", "Push up", false));
-        }catch (IllegalArgumentException e){
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        try {
-            activities.add(new Activity("9999", "Run 2km", false));
-        }catch (IllegalArgumentException e){
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        try {
-            activities.add(new Activity("1001", "Pull up", true));
-        }catch (IllegalArgumentException e){
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        System.out.println("\n=====Activities======");
-        for(Activity activity : activities){
-                activity.displayActivity();
-        }
-
-        //Retrieve the second activity using get()
-        System.out.println("\n<----Retrieve the second activity ---->");
-        activities.get(1).displayActivity();
-
-        //Mark the first activity as Completed
-        activities.get(0).markAsCompleted();
-
-        //remove the third activity
-        //activity.remove(2);
-
-        //display the final collections and displaying the collection size.
-        System.out.println("\n" + activities.size() + " Final activities left");
-        for(int i = 0; i<activities.size(); i++){
-            activities.get(i).displayActivity();
-        }
-
-    }
 }
 
 
